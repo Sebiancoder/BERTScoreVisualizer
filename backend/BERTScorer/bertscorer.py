@@ -63,8 +63,10 @@ class BERTScorer:
 
         if return_matchings:
 
+            return_dict['reference_tokens'] = reference_tokens
             return_dict['recall_matchings'] = recall_matchings
             return_dict['recall_matching_values'] = recall_matching_values
+            return_dict['candidate_tokens'] = candidate_tokens
             return_dict['precision_matchings'] = precision_matchings
             return_dict['precision_matching_values'] = precision_matching_values
 

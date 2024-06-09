@@ -1,10 +1,12 @@
-from flask import flask
+from flask import Flask, request
 from BERTScorer.bertscorer import BERTScorer
 
 app = Flask(__name__)
 
 @app.route('/bertscore', methods=['GET'])
 def bertscore():
+    
+    print("endpoint hit")
     
     reference_text = request.args.get('reference_text')
     candidate_text = request.args.get('candidate_text')
