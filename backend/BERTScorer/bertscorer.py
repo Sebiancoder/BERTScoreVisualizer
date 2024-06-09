@@ -38,6 +38,8 @@ class BERTScorer:
         norm_candidate_embeddings = candidate_embeddings / np.linalg.norm(candidate_embeddings, axis=1, keepdims=True)
 
         similarity_matrix = np.dot(norm_reference_embeddings, norm_candidate_embeddings.T)
+
+        return similarity_matrix
     
     def score(self, reference: str, candidate: str, return_matchings: bool = False, similarity_matrix: np.ndarray = None) -> dict:
 
