@@ -48,9 +48,24 @@ class BERTScorer:
 
             similarity_matrix = self.build_similarity_matrix(reference_embeddings, candidate_embeddings)
 
-        recall = np.sum(np.max(similarity_matrix, axis=1)) / len(reference_tokens)
-        precision = np.sum(np.max(similarity_matrix, axis=0)) / len(candidate_tokens)
+        recall_matchings = np.argmax(similarity_matrix, axis=1)
+        recall_matching_values = np.max(similarity_matrix, axis=1)
+
+        precision_matchings = np.argmax(similarity_matrix, axis=0)
+        precision_matching_values = np.max(similarity_matrix, axis=0)
+        
+        recall = np.sum(recall_matching_values) / recall_matching_values.shape[0]
+        precision = np.sum(precision_matching_values) / precision_matching_values.shape[0]
 
         f1_score = 2 * (precision * recall) / (precision + recall)
 
-        return {'precision': precision, 'recall': recall, 'f1_score': f1_score}
+        return_dict = {'precision': precision, 'recall': recall, 'f1_score': f1_score}
+
+        if return_matchings:
+
+            return_dict['recall_matchings'] = recall_matchings
+            return_dict['recall_matching_values'] = recall_matching_values
+            return_dict['precision_matchings'] = precision_matchings
+            return_dict['precision_matching_values'] = precision_matching_values
+
+        return return_dict

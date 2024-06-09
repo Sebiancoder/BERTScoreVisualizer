@@ -2,8 +2,9 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from bertscorer import BERTScorer
+from BERTScoreVisualizer.bertscorer import BERTScorer
 import numpy as np
+import math
 
 def test_bertscorer():
 
@@ -26,6 +27,17 @@ def test_bertscorer():
         similarity_matrix=sample_similarity_matrix
     )
 
-    assert bert_score_results['recall'] == 0.9
-    assert bert_score_results['precision'] == 0.8
+    print("Recall: ", bert_score_results['recall'])
+    print("Precision: ", bert_score_results['precision'])
+    print("F1 Score: ", bert_score_results['f1_score'])
+
+    assert math.isclose(bert_score_results['recall'], 0.8, abs_tol=1e-5)
+    assert math.isclose(bert_score_results['precision'], 0.8, abs_tol=1e-5)
+    assert math.isclose(bert_score_results['f1_score'], 0.8, abs_tol=1e-5)
+
+    print("BertScorer tests passed")
+
+if __name__ == "__main__":
+    
+    test_bertscorer()
     
