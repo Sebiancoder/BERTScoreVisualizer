@@ -1,9 +1,14 @@
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 from BERTScorer.bertscorer import BERTScorer
+import json
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/bertscore', methods=['GET'])
+@cross_origin()
 def bertscore():
     
     print("endpoint hit")
@@ -19,5 +24,9 @@ def bertscore():
         return_matchings=True
     )
 
-    return bert_score_results
+    response = json.dumps(bert_scorer.format_matching_results(bert_score_results))
+
+    return response
+
+
 

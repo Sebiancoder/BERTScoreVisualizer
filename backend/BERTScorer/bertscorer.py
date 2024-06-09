@@ -73,3 +73,20 @@ class BERTScorer:
             return_dict['precision_matching_values'] = precision_matching_values
 
         return return_dict
+
+    def format_matching_results(self, bert_score_results: dict) -> dict:
+
+        formatted_results_dict = {}
+
+        formatted_results_dict['precision'] = bert_score_results['precision']
+        formatted_results_dict['recall'] = bert_score_results['recall']
+        formatted_results_dict['f1_score'] = bert_score_results['f1_score']
+
+        formatted_results_dict['reference_tokens'] = bert_score_results['reference_tokens']
+        formatted_results_dict['candidate_tokens'] = bert_score_results['candidate_tokens']
+
+        formatted_results_dict['recall_matchings'] = bert_score_results['recall_matchings'].tolist()
+        formatted_results_dict['recall_matching_values'] = bert_score_results['recall_matching_values'].tolist()
+
+        formatted_results_dict['precision_matchings'] = bert_score_results['precision_matchings'].tolist()
+        formatted_results_dict['precision_matching_values'] = bert_score_results['precision_matching_values'].tolist()

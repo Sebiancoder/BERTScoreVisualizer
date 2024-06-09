@@ -4,8 +4,15 @@ import { Button, TextField } from '@mui/material';
 
 function App() {
 
+  //states for text field input
   const [referenceText, setReferenceText] = useState("");
   const [candidateText, setCandidateText] = useState("");
+
+  //bertscore results state
+  const [bertScoreResults, setBERTScoreResults] = useState({});
+
+  //bertscore data present
+  const [bertScoreDataPresent, setBERTScoreDataPresent] = useState(false);
 
   const handleReferenceTextChange = (event) => {
     setReferenceText(event.target.value);
@@ -22,7 +29,7 @@ function App() {
     
     const BERTResponse = await fetch("http://localhost:5000/bertscore?" + refTextArg + "&" + candTextArg);
 
-    console.log(BERTResponse);
+    
 
   }
 
