@@ -41,30 +41,34 @@ function App() {
     <div className="App">
       <header className="header">BERTScore Visualizer</header>
       <div className="main">
-        <div className="leftpanel">
-          <TextField 
-            className="sentence-entry" 
-            id="outlined-basic" 
-            label="Enter Reference Text" 
-            variant="outlined" 
-            margin='normal' 
-            fullWidth='true' 
-            value={referenceText}
-            onChange={handleReferenceTextChange}
-          />
-          <TextField 
-            className="sentence-entry" 
-            id="outlined-basic" 
-            label="Enter Candidate Text" 
-            variant="outlined" 
-            margin='normal' 
-            fullWidth='true'
-            value={candidateText}
-            onChange={handleCandidateTextChange}
-          />
-          <Button className="submit-button" variant="contained" color="primary" onClick={getBERTResults}>Calculate and Visualize BERTScore</Button>
+        <div className="toppanel">
+          <div className='entrypanel'>
+            <TextField 
+              className="sentence-entry" 
+              id="outlined-basic" 
+              label="Enter Reference Text" 
+              variant="outlined" 
+              margin='normal' 
+              fullWidth='true' 
+              value={referenceText}
+              onChange={handleReferenceTextChange}
+            />
+            <TextField 
+              className="sentence-entry" 
+              id="outlined-basic" 
+              label="Enter Candidate Text" 
+              variant="outlined" 
+              margin='normal' 
+              fullWidth='true'
+              value={candidateText}
+              onChange={handleCandidateTextChange}
+            />
+          </div>
+          <div className='buttonpanel'>
+            <Button className="submit-button" variant="contained" color="primary" onClick={getBERTResults}>Calculate and Visualize BERTScore</Button>
+          </div>
         </div>
-        <div className="rightpanel">
+        <div className="bottompanel">
           <p>{String(bertScoreResults)}</p>
         </div>
       </div>
