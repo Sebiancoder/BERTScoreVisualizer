@@ -78,9 +78,9 @@ class BERTScorer:
 
         formatted_results_dict = {}
 
-        formatted_results_dict['precision'] = bert_score_results['precision']
-        formatted_results_dict['recall'] = bert_score_results['recall']
-        formatted_results_dict['f1_score'] = bert_score_results['f1_score']
+        formatted_results_dict['precision'] = round(bert_score_results['precision'], 4)
+        formatted_results_dict['recall'] = round(bert_score_results['recall'], 4)
+        formatted_results_dict['f1_score'] = round(bert_score_results['f1_score'], 4)
 
         formatted_results_dict['reference_tokens'] = bert_score_results['reference_tokens']
         formatted_results_dict['candidate_tokens'] = bert_score_results['candidate_tokens']
@@ -90,3 +90,5 @@ class BERTScorer:
 
         formatted_results_dict['precision_matchings'] = bert_score_results['precision_matchings'].tolist()
         formatted_results_dict['precision_matching_values'] = bert_score_results['precision_matching_values'].tolist()
+
+        return formatted_results_dict

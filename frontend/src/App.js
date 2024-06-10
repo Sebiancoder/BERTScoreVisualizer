@@ -27,9 +27,13 @@ function App() {
     const refTextArg = "reference_text=" + encodeURIComponent(referenceText);
     const candTextArg = "candidate_text=" + encodeURIComponent(candidateText);
     
-    const BERTResponse = await fetch("http://localhost:5000/bertscore?" + refTextArg + "&" + candTextArg);
-
-    
+    const BERTResponse = fetch("http://localhost:5000/bertscore?" + refTextArg + "&" + candTextArg).then(
+      response => {return response.json()}
+    ).then(data => {
+      console.log(data)
+      setBERTScoreResults(data);
+      setBERTScoreDataPresent(true);
+    });
 
   }
 
@@ -61,7 +65,7 @@ function App() {
           <Button className="submit-button" variant="contained" color="primary" onClick={getBERTResults}>Calculate and Visualize BERTScore</Button>
         </div>
         <div className="rightpanel">
-        
+          <p>{String(bertScoreResults)}</p>
         </div>
       </div>
     </div>

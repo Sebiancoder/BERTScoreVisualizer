@@ -11,8 +11,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def bertscore():
     
-    print("endpoint hit")
-    
     reference_text = request.args.get('reference_text')
     candidate_text = request.args.get('candidate_text')
 
