@@ -69,8 +69,37 @@ function App() {
           </div>
         </div>
         <div className="bottompanel">
-          <p>{String(bertScoreResults)}</p>
-        </div>
+          {bertScoreDataPresent ?
+            <div className='bottomsubpanel'>
+              <div className='matchingdisplay'>
+                <div className='referencetokens'>
+                  <h3>Reference Text Tokens</h3>
+                  {
+                    bertScoreResults['reference_tokens'].map((token, index) => {
+                      return <span key={index} className='token'>{token}</span>
+                    })
+                  }
+                </div>
+                <div className='candidatetokens'>
+                  <h3>Candidate Text Tokens</h3>
+                  {
+                    bertScoreResults['candidate_tokens'].map((token, index) => {
+                      return <span key={index} className='token'>{token}</span>
+                    })
+                  }
+                </div>
+              </div>
+              <div className='scoredisplay'>
+                <h2>Scoring</h2>
+                <div>
+                  <h3>Recall: {bertScoreResults['recall']}</h3>
+                  <h3>Precision: {bertScoreResults['precision']}</h3>
+                  <h3>F1: {bertScoreResults['f1_score']}</h3>
+                </div>
+              </div>
+            </div>
+            : <div className='no-data-placeholder'><h3>Enter some test to see results!</h3></div>}
+          </div>
       </div>
     </div>
   );
