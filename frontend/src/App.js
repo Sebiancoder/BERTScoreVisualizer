@@ -40,6 +40,19 @@ function App() {
     });
   }
 
+  const getCurrentMoreInfoScore = () => {
+    if (hoveredToken === null) {
+      return null;
+    }
+    if (hoveredToken.split('_')[0] === "reftoken") {
+      var currMoreInfoScore = bertScoreResults["recall_matching_values"][parseInt(hoveredToken.split('_')[1])];
+    } else {
+      var currMoreInfoScore = bertScoreResults["precision_matching_values"][parseInt(hoveredToken.split('_')[1])];
+    }
+
+    return currMoreInfoScore;
+  }
+
   return (
     <div className="App">
       <header className="header">BERTScore Visualizer</header>
@@ -168,10 +181,8 @@ function App() {
                             </p>
                           </div>
                           with {hoveredToken.split('_')[0] === "reftoken" ? "recall" : "precision"} of 
-                          <div className="more-info-score">{" " + String((hoveredToken.split('_')[0] === "reftoken" 
-                            ? bertScoreResults["recall_matching_values"][parseInt(hoveredToken.split('_')[1])]
-                            : bertScoreResults["precision_matching_values"][parseInt(hoveredToken.split('_')[1])]
-                          ).toFixed(4))}
+                          <div className="more-info-score" style={{"backgroundColor": ["hsl(",((getCurrentMoreInfoScore() * 120) - 30).toString(10),",100%,50%)"].join("")}}>
+                            {getCurrentMoreInfoScore().toFixed(4)}
                           </div> 
                         </div> 
                       : <p className='more-info-ph'>Hover over a token to see more information.</p> }
@@ -180,11 +191,11 @@ function App() {
               </ArcherContainer>
               <Divider orientation='vertical' sx={{ borderRightWidth: 5 }}  variant='middle' flexItem />
               <div className='scoredisplay'>
-                <h2>Scoring</h2>
+                <h2>Overall Scoring</h2>
                 <div className='metricvalues'>
-                  <h3 className='metric'>Recall: {bertScoreResults['recall']}</h3>
-                  <h3 className='metric'>Precision: {bertScoreResults['precision']}</h3>
-                  <h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3>
+                  <div className='metricdiv'><h3 className='metric'>Recall: {bertScoreResults['recall']}</h3></div>
+                  <div className='metricdiv'><h3 className='metric'>Precision: {bertScoreResults['precision']}</h3></div>
+                  <div className='metricdiv'><h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3></div>
                 </div>
               </div>
             </div>

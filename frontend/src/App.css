@@ -103,6 +103,20 @@ html {
 
 .metric {
   margin: 5px;
+  border-radius: 5px;
+  border-color: #ed6c02;
+}
+
+.metricdiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+
 }
 
 .no-data-placeholder {
@@ -170,7 +184,6 @@ html {
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-  background-color: aquamarine;
 }
 
 .token-span-desc {
