@@ -3,16 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, TextField, Divider } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
-//hovering function
-function useHover() {
-  const [hovering, setHovering] = useState(false)
-  const onHoverProps = {
-    onMouseEnter: () => setHovering(true),
-    onMouseLeave: () => setHovering(false),
-  }
-  return [hovering, onHoverProps]
-}
-
 function App() {
 
   //states for text field input
@@ -104,7 +94,10 @@ function App() {
                                 targetId: "candtoken_" + String(bertScoreResults["recall_matchings"][index]),
                                 targetAnchor: "top",
                                 sourceAnchor: "bottom",
-                                style: {strokeDasharray: '5,5', strokeColor: 'green'}
+                                style: {
+                                    strokeDasharray: '5,5', 
+                                    strokeColor: (hoveredToken === null || hoveredToken === "reftoken_" + String(index)) ? 'rgba(30,176,11,1)' : 'rgba(30,176,11,0.1)'
+                                }
                               }]}
                               >
                               <div 
@@ -134,7 +127,9 @@ function App() {
                                 targetId: "reftoken_" + String(bertScoreResults["precision_matchings"][index]),
                                 targetAnchor: "bottom",
                                 sourceAnchor: "top",
-                                style: {strokeDasharray: '5,5', strokeColor: 'red'}
+                                style: {strokeDasharray: '5,5', strokeColor: 
+                                  (hoveredToken === null || hoveredToken === "candtoken_" + String([index])) ? 'rgba(176,19,11,1)' : 'rgba(176,19,11,0.1)'
+                                }
                               }]}
                             >
                               <div 
@@ -150,8 +145,36 @@ function App() {
                       }
                     </div>
                   </div>
-                  <div>
-                    Hover over a token for more information. {hoveredToken}
+                  <div className='more-info-div'>
+                    {hoveredToken 
+                      ? <div className='more-info-text'>
+                          The {hoveredToken.split('_')[0] === "reftoken" ? "reference" : "candidate"} token 
+                          <div className='token'>
+                            <p className='token-text'>{
+                              hoveredToken.split('_')[0] === "reftoken" 
+                                ? bertScoreResults["reference_tokens"][parseInt(hoveredToken.split('_')[1])]
+                                : bertScoreResults["candidate_tokens"][parseInt(hoveredToken.split('_')[1])]
+                              }
+                            </p>
+                          </div>
+                          {hoveredToken.split('_')[0] === "reftoken" ? "is recalled by "  : "recalls "}
+                          the {hoveredToken.split('_')[0] === "reftoken" ? "candidate" : "reference"} token
+                          <div className='token'>
+                            <p className='token-text'>{
+                              hoveredToken.split('_')[0] === "reftoken" 
+                                ? bertScoreResults["candidate_tokens"][bertScoreResults["recall_matchings"][parseInt(hoveredToken.split('_')[1])]]
+                                : bertScoreResults["reference_tokens"][bertScoreResults["precision_matchings"][parseInt(hoveredToken.split('_')[1])]]
+                              }
+                            </p>
+                          </div>
+                          with {hoveredToken.split('_')[0] === "reftoken" ? "recall" : "precision"} of 
+                          <div className="more-info-score">{" " + String((hoveredToken.split('_')[0] === "reftoken" 
+                            ? bertScoreResults["recall_matching_values"][parseInt(hoveredToken.split('_')[1])]
+                            : bertScoreResults["precision_matching_values"][parseInt(hoveredToken.split('_')[1])]
+                          ).toFixed(4))}
+                          </div> 
+                        </div> 
+                      : <p className='more-info-ph'>Hover over a token to see more information.</p> }
                   </div>
                 </div>
               </ArcherContainer>

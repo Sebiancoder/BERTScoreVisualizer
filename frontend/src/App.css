@@ -81,7 +81,7 @@ html {
   flex-direction: column;
   flex: 1;
   align-items: stretch;
-  justify-content: space-evenly;
+  justify-content: stretch;
   height: 100%;
 }
 
@@ -127,7 +127,7 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex: 0.4;
+  flex: 0.4 0 0;
 }
 
 .candidatetokens {
@@ -136,11 +136,41 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex: 0.4;
+  flex: 0.4 0 0;
 }
 
 .more-info-div {
-  flex: 0.2;
+  flex: 0.2 0 0;
+}
+
+.more-info-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.more-info-ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: var(--main-text-color);
+}
+
+.more-info-score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: aquamarine;
 }
 
 .token-span-desc {
