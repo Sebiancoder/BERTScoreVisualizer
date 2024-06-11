@@ -127,6 +127,7 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex: 0.4;
 }
 
 .candidatetokens {
@@ -135,6 +136,11 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex: 0.4;
+}
+
+.more-info-div {
+  flex: 0.2;
 }
 
 .token-span-desc {

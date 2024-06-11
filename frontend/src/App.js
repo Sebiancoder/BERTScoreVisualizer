@@ -1,7 +1,17 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, TextField, Divider } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
+
+//hovering function
+function useHover() {
+  const [hovering, setHovering] = useState(false)
+  const onHoverProps = {
+    onMouseEnter: () => setHovering(true),
+    onMouseLeave: () => setHovering(false),
+  }
+  return [hovering, onHoverProps]
+}
 
 function App() {
 
@@ -14,6 +24,9 @@ function App() {
 
   //bertscore data present
   const [bertScoreDataPresent, setBERTScoreDataPresent] = useState(false);
+
+  //hover states
+  const [hoveredToken, setHoveredToken] = useState(null);
 
   const handleReferenceTextChange = (event) => {
     setReferenceText(event.target.value);
@@ -35,7 +48,6 @@ function App() {
       setBERTScoreResults(data);
       setBERTScoreDataPresent(true);
     });
-
   }
 
   return (
@@ -95,7 +107,13 @@ function App() {
                                 style: {strokeDasharray: '5,5', strokeColor: 'green'}
                               }]}
                               >
-                              <div key={index} className='token'><p className='token-text'>{token}</p></div>
+                              <div 
+                                key={index} 
+                                className='token' 
+                                onMouseOver={() => setHoveredToken("reftoken_" + String(index))} 
+                                onMouseOut={() => setHoveredToken(null)}>
+                                  <p className='token-text'>{token}</p>
+                              </div>
                             </ArcherElement>
                           )
                         })
@@ -119,12 +137,21 @@ function App() {
                                 style: {strokeDasharray: '5,5', strokeColor: 'red'}
                               }]}
                             >
-                              <div key={index} className='token'><p className='token-text'>{token}</p></div>
+                              <div 
+                                key={index} 
+                                className='token'
+                                onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
+                                onMouseOut={() => setHoveredToken(null)}>
+                                  <p className='token-text'>{token}</p>
+                              </div>
                             </ArcherElement>
                           )
                         })
                       }
                     </div>
+                  </div>
+                  <div>
+                    Hover over a token for more information. {hoveredToken}
                   </div>
                 </div>
               </ArcherContainer>
