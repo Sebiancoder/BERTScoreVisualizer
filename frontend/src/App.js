@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Divider } from '@mui/material';
+import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
             <TextField 
               className="sentence-entry" 
               id="outlined-basic" 
-              label="Enter Reference Text" 
+              label="Reference Text" 
               variant="outlined" 
               margin='normal' 
               fullWidth='true' 
@@ -56,7 +57,7 @@ function App() {
             <TextField 
               className="sentence-entry" 
               id="outlined-basic" 
-              label="Enter Candidate Text" 
+              label="Candidate Text" 
               variant="outlined" 
               margin='normal' 
               fullWidth='true'
@@ -65,40 +66,79 @@ function App() {
             />
           </div>
           <div className='buttonpanel'>
-            <Button className="submit-button" variant="contained" color="primary" onClick={getBERTResults}>Calculate and Visualize BERTScore</Button>
+            <Button 
+              className="submit-button" 
+              variant="contained" 
+              color="primary"
+              onClick={getBERTResults}>Calculate and Visualize BERTScore</Button>
           </div>
         </div>
         <div className="bottompanel">
           {bertScoreDataPresent ?
             <div className='bottomsubpanel'>
-              <div className='matchingdisplay'>
-                <div className='referencetokens'>
-                  <h3>Reference Text Tokens</h3>
-                  {
-                    bertScoreResults['reference_tokens'].map((token, index) => {
-                      return <span key={index} className='token'>{token}</span>
-                    })
-                  }
+              <ArcherContainer className='matchingdisplay'>
+                <div className='matching-display-child'>
+                  <div className='referencetokens'>
+                    <div className="token-span-desc">
+                      <h3>Reference Text Tokens</h3>
+                    </div>
+                    <div className="tokens">
+                      {
+                        bertScoreResults['reference_tokens'].map((token, index) => {
+                          return (
+                            <ArcherElement 
+                              id={"reftoken_" + String(index)} 
+                              relations={[{
+                                targetId: "candtoken_" + String(bertScoreResults["recall_matchings"][index]),
+                                targetAnchor: "top",
+                                sourceAnchor: "bottom",
+                                style: {strokeDasharray: '5,5', strokeColor: 'green'}
+                              }]}
+                              >
+                              <div key={index} className='token'><p className='token-text'>{token}</p></div>
+                            </ArcherElement>
+                          )
+                        })
+                      }
+                    </div>
+                  </div>
+                  <div className='candidatetokens'>
+                    <div className="token-span-desc">
+                      <h3>Candidate Text Tokens</h3>
+                    </div>
+                    <div className="tokens">
+                      {
+                        bertScoreResults['candidate_tokens'].map((token, index) => {
+                          return (
+                            <ArcherElement
+                              id={"candtoken_" + String(index)} 
+                              relations={[{
+                                targetId: "reftoken_" + String(bertScoreResults["precision_matchings"][index]),
+                                targetAnchor: "bottom",
+                                sourceAnchor: "top",
+                                style: {strokeDasharray: '5,5', strokeColor: 'red'}
+                              }]}
+                            >
+                              <div key={index} className='token'><p className='token-text'>{token}</p></div>
+                            </ArcherElement>
+                          )
+                        })
+                      }
+                    </div>
+                  </div>
                 </div>
-                <div className='candidatetokens'>
-                  <h3>Candidate Text Tokens</h3>
-                  {
-                    bertScoreResults['candidate_tokens'].map((token, index) => {
-                      return <span key={index} className='token'>{token}</span>
-                    })
-                  }
-                </div>
-              </div>
+              </ArcherContainer>
+              <Divider orientation='vertical' sx={{ borderRightWidth: 5 }}  variant='middle' flexItem />
               <div className='scoredisplay'>
                 <h2>Scoring</h2>
-                <div>
-                  <h3>Recall: {bertScoreResults['recall']}</h3>
-                  <h3>Precision: {bertScoreResults['precision']}</h3>
-                  <h3>F1: {bertScoreResults['f1_score']}</h3>
+                <div className='metricvalues'>
+                  <h3 className='metric'>Recall: {bertScoreResults['recall']}</h3>
+                  <h3 className='metric'>Precision: {bertScoreResults['precision']}</h3>
+                  <h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3>
                 </div>
               </div>
             </div>
-            : <div className='no-data-placeholder'><h3>Enter some test to see results!</h3></div>}
+            : <div className='no-data-placeholder'><h3>Enter some text to see how BertScore works!</h3></div>}
           </div>
       </div>
     </div>
