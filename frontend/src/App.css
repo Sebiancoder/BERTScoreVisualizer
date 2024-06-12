@@ -41,7 +41,7 @@ html {
 .entrypanel {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 0.95;
 }
@@ -116,7 +116,6 @@ html {
   margin: 5px;
   border-radius: 5px;
   background-color: #f0f0f0;
-
 }
 
 .no-data-placeholder {

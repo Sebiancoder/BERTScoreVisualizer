@@ -4,6 +4,11 @@ import numpy as np
 
 class BERTScorer:
 
+    AVAILABLE_MODELS = [
+        'bert-base-uncased',
+        'bert-large-uncased'
+    ]
+    
     def __init__(self, pretrained_model_name: str = 'bert-base-uncased'):
 
         self.bert_tokenizer = BertTokenizer.from_pretrained(pretrained_model_name)

@@ -1,13 +1,28 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Divider } from '@mui/material';
+import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
 
+  const BACKEND_URL = "http://localhost:5000";
+  
+  //available bert models
+  const [availableModels, setAvailableModels] = useState();
+
+  useEffect(() => {
+    fetch(BACKEND_URL + "/available_models").then(
+      response => {return response.json()}
+    ).then(data => {
+      console.log(data)
+      setAvailableModels(data);
+    });
+  }, []);
+  
   //states for text field input
   const [referenceText, setReferenceText] = useState("");
   const [candidateText, setCandidateText] = useState("");
+  const [selectedBertModel, setSelectedBertModel] = useState("bert-base-uncased");
 
   //bertscore results state
   const [bertScoreResults, setBERTScoreResults] = useState({});
@@ -25,13 +40,18 @@ function App() {
   const handleCandidateTextChange = (event) => {
     setCandidateText(event.target.value);
   };
+
+  const handleModelChange = (event) => {
+    setSelectedBertModel(event.target.value);
+  };
   
   async function getBERTResults() {
 
     const refTextArg = "reference_text=" + encodeURIComponent(referenceText);
     const candTextArg = "candidate_text=" + encodeURIComponent(candidateText);
+    const bertModelArg = "pretrained_model_name=" + encodeURI(selectedBertModel)
     
-    const BERTResponse = fetch("http://localhost:5000/bertscore?" + refTextArg + "&" + candTextArg).then(
+    const BERTResponse = fetch(BACKEND_URL + "/bertscore?" + refTextArg + "&" + candTextArg).then(
       response => {return response.json()}
     ).then(data => {
       console.log(data)
@@ -79,6 +99,19 @@ function App() {
               value={candidateText}
               onChange={handleCandidateTextChange}
             />
+            <FormControl sx={{ m: 1, width: 240 }} size='small'>
+            <InputLabel id="demo-simple-select-label">Model</InputLabel>
+              <Select label="Model" onChange={handleModelChange}>
+              {availableModels ? 
+                availableModels.map((model, index) => {
+                  return (
+                    <MenuItem key={index} value={model}>{model}</MenuItem>
+                  )
+                })
+                : <option value="bert-base-uncased">bert-base-uncased</option>
+              }
+            </Select>
+            </FormControl>
           </div>
           <div className='buttonpanel'>
             <Button 

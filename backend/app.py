@@ -13,8 +13,9 @@ def bertscore():
     
     reference_text = request.args.get('reference_text')
     candidate_text = request.args.get('candidate_text')
+    pretrained_model_name = request.args.get('pretrained_model_name')
 
-    bert_scorer = BERTScorer()
+    bert_scorer = BERTScorer(pretrained_model_name=pretrained_model_name)
 
     bert_score_results = bert_scorer.score(
         reference_text,
@@ -26,5 +27,9 @@ def bertscore():
 
     return response
 
-
+@app.route('/available_models', methods=['GET'])
+@cross_origin()
+def available_models():
+    
+    return json.dumps(BERTScorer.AVAILABLE_MODELS)
 
