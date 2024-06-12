@@ -5,8 +5,7 @@ import numpy as np
 class BERTScorer:
 
     AVAILABLE_MODELS = [
-        'bert-base-uncased',
-        'bert-large-uncased'
+        'bert-base-uncased'
     ]
     
     def __init__(self, pretrained_model_name: str = 'bert-base-uncased'):

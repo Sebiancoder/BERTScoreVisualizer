@@ -41,9 +41,15 @@ html {
 .entrypanel {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   flex: 0.95;
+}
+
+.entry-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .buttonpanel {

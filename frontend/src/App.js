@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem } from '@mui/material';
+import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem, Alert } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
@@ -11,18 +11,25 @@ function App() {
   const [availableModels, setAvailableModels] = useState();
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/available_models").then(
-      response => {return response.json()}
-    ).then(data => {
-      console.log(data)
-      setAvailableModels(data);
-    });
+    try {
+      fetch(BACKEND_URL + "/available_models").then(
+        response => {return response.json()}
+      ).then(data => {
+        console.log(data)
+        setAvailableModels(data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
   
   //states for text field input
   const [referenceText, setReferenceText] = useState("");
   const [candidateText, setCandidateText] = useState("");
   const [selectedBertModel, setSelectedBertModel] = useState("bert-base-uncased");
+
+  //is error message active state
+  const [alertActive, setAlertActive] = useState("hidden");
 
   //bertscore results state
   const [bertScoreResults, setBERTScoreResults] = useState({});
@@ -35,10 +42,12 @@ function App() {
 
   const handleReferenceTextChange = (event) => {
     setReferenceText(event.target.value);
+    setAlertActive("hidden");
   };
 
   const handleCandidateTextChange = (event) => {
     setCandidateText(event.target.value);
+    setAlertActive("hidden");
   };
 
   const handleModelChange = (event) => {
@@ -46,12 +55,18 @@ function App() {
   };
   
   async function getBERTResults() {
-
+    
+    //input validaation
+    if (referenceText === "" || candidateText === "") {
+      setAlertActive("visible");
+      return;
+    }
+    
     const refTextArg = "reference_text=" + encodeURIComponent(referenceText);
     const candTextArg = "candidate_text=" + encodeURIComponent(candidateText);
     const bertModelArg = "pretrained_model_name=" + encodeURI(selectedBertModel)
     
-    const BERTResponse = fetch(BACKEND_URL + "/bertscore?" + refTextArg + "&" + candTextArg).then(
+    const BERTResponse = fetch(BACKEND_URL + "/bertscore?" + refTextArg + "&" + candTextArg + "&" + bertModelArg).then(
       response => {return response.json()}
     ).then(data => {
       console.log(data)
@@ -99,19 +114,24 @@ function App() {
               value={candidateText}
               onChange={handleCandidateTextChange}
             />
-            <FormControl sx={{ m: 1, width: 240 }} size='small'>
-            <InputLabel id="demo-simple-select-label">Model</InputLabel>
-              <Select label="Model" onChange={handleModelChange}>
-              {availableModels ? 
-                availableModels.map((model, index) => {
-                  return (
-                    <MenuItem key={index} value={model}>{model}</MenuItem>
-                  )
-                })
-                : <option value="bert-base-uncased">bert-base-uncased</option>
-              }
-            </Select>
-            </FormControl>
+            <div className='entry-bottom'>
+              <FormControl sx={{ m: 1, width: 240 }} size='small'>
+              <InputLabel id="demo-simple-select-label">Model</InputLabel>
+                <Select label="Model" onChange={handleModelChange} defaultValue={"bert-base-uncased"}>
+                {availableModels ? 
+                  availableModels.map((model, index) => {
+                    return (
+                      <MenuItem key={index} value={model}>{model}</MenuItem>
+                    )
+                  })
+                  : <option value="bert-base-uncased">bert-base-uncased</option>
+                }
+              </Select>
+              </FormControl>
+              <Alert severity='warning' style={{visibility: alertActive}}>
+                Please enter both Reference and Candidate Text.
+              </Alert>
+            </div>
           </div>
           <div className='buttonpanel'>
             <Button 
