@@ -65,7 +65,11 @@ class BERTScorer:
 
         f1_score = 2 * (precision * recall) / (precision + recall)
 
-        return_dict = {'precision': precision, 'recall': recall, 'f1_score': f1_score}
+        candidate_verbosity_scores = 1 - (precision_matching_values / recall_matching_values[precision_matchings])
+
+        verbosity = np.mean(candidate_verbosity_scores)
+
+        return_dict = {'precision': precision, 'recall': recall, 'f1_score': f1_score, 'verbosity': verbosity}
 
         if return_matchings:
 
@@ -75,6 +79,7 @@ class BERTScorer:
             return_dict['candidate_tokens'] = candidate_tokens
             return_dict['precision_matchings'] = precision_matchings
             return_dict['precision_matching_values'] = precision_matching_values
+            return_dict['candidate_verbosity_scores'] = candidate_verbosity_scores
 
         return return_dict
 
@@ -85,6 +90,7 @@ class BERTScorer:
         formatted_results_dict['precision'] = round(bert_score_results['precision'], 4)
         formatted_results_dict['recall'] = round(bert_score_results['recall'], 4)
         formatted_results_dict['f1_score'] = round(bert_score_results['f1_score'], 4)
+        formatted_results_dict['verbosity'] = round(float(bert_score_results['verbosity']), 4)
 
         formatted_results_dict['reference_tokens'] = bert_score_results['reference_tokens']
         formatted_results_dict['candidate_tokens'] = bert_score_results['candidate_tokens']
@@ -94,5 +100,6 @@ class BERTScorer:
 
         formatted_results_dict['precision_matchings'] = bert_score_results['precision_matchings'].tolist()
         formatted_results_dict['precision_matching_values'] = bert_score_results['precision_matching_values'].tolist()
+        formatted_results_dict['candidate_verbosity_scores'] = bert_score_results['candidate_verbosity_scores'].tolist()
 
         return formatted_results_dict

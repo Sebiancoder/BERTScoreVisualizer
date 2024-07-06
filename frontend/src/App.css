@@ -6,6 +6,7 @@ html {
 :root {
   --main-bg-color: #ffffff;
   --main-text-color: #ed6c02;
+  --main-gray: #aca6a6
 }
 
 .App {
@@ -114,7 +115,7 @@ html {
 .metric {
   margin: 5px;
   border-radius: 5px;
-  border-color: #ed6c02;
+  border-color: var(--main-text-color);
 }
 
 .metricdiv {
@@ -125,7 +126,7 @@ html {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
-  background-color: #aca6a6;
+  background-color: var(--main-gray);
 }
 
 .no-data-placeholder {
@@ -181,7 +182,7 @@ html {
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-  background-color: #f0f0f0;
+  background-color: var(--main-bg-color);
   color: var(--main-text-color);
 }
 
@@ -221,5 +222,30 @@ html {
 .token-text {
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+}
+
+.verbosePopperDiv {
+  background-color: var(--main-gray);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  margin-top: 10px;
+}
+
+.verbosePopperDiv::after {
+  content: "";
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  margin-right: 0px;
+
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--main-gray) transparent;
+
+}
+
+.popper-text {
   margin: 0px;
 }

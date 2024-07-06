@@ -23,7 +23,9 @@ def bertscore():
         return_matchings=True
     )
 
-    response = json.dumps(bert_scorer.format_matching_results(bert_score_results))
+    formatted_bert_score_results = bert_scorer.format_matching_results(bert_score_results)
+
+    response = json.dumps(formatted_bert_score_results)
 
     return response
 

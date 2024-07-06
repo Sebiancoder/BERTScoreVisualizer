@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem, Alert } from '@mui/material';
+import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem, Alert, Popper } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
@@ -187,6 +187,7 @@ function App() {
                       {
                         bertScoreResults['candidate_tokens'].map((token, index) => {
                           return (
+                            <div>
                             <ArcherElement
                               id={"candtoken_" + String(index)} 
                               relations={[{
@@ -201,11 +202,20 @@ function App() {
                               <div 
                                 key={index} 
                                 className='token'
+                                id={'candtoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
-                                onMouseOut={() => setHoveredToken(null)}>
+                                onMouseOut={() => setHoveredToken(null)}
+                                style={bertScoreResults["candidate_verbosity_scores"][index] > 0.01 ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
+                              <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["candidate_verbosity_scores"][index] > 0.01} 
+                                anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
+                                <div className='verbosePopperDiv'>
+                                  <p className='popper-text'> This token is verbose (Verbosity Score: {bertScoreResults["candidate_verbosity_scores"][index].toFixed(4)})</p>
+                                </div>
+                              </Popper>
+                            </div>
                           )
                         })
                       }
@@ -249,6 +259,7 @@ function App() {
                   <div className='metricdiv'><h3 className='metric'>Recall: {bertScoreResults['recall']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>Precision: {bertScoreResults['precision']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3></div>
+                  <div className='metricdiv'><h3 className='metric'>Verbosity: {bertScoreResults['verbosity']}</h3></div>
                 </div>
               </div>
             </div>
