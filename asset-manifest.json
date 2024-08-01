@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BERTScoreVisualizer/static/css/main.0633ac1c.css",
+    "main.js": "/BERTScoreVisualizer/static/js/main.0bb329b4.js",
+    "static/js/453.e4d97228.chunk.js": "/BERTScoreVisualizer/static/js/453.e4d97228.chunk.js",
+    "index.html": "/BERTScoreVisualizer/index.html",
+    "main.0633ac1c.css.map": "/BERTScoreVisualizer/static/css/main.0633ac1c.css.map",
+    "main.0bb329b4.js.map": "/BERTScoreVisualizer/static/js/main.0bb329b4.js.map",
+    "453.e4d97228.chunk.js.map": "/BERTScoreVisualizer/static/js/453.e4d97228.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0633ac1c.css",
+    "static/js/main.0bb329b4.js"
+  ]
+}
