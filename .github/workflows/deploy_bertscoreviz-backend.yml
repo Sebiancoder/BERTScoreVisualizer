@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
 
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +27,7 @@ jobs:
 
       - name: Navigate to backend directory
         run: |
-          pwd
-          cd backend
-          pwd
+          
       
       - name: Create and start virtual environment
         run: |
