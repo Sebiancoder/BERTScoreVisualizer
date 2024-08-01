@@ -5,7 +5,7 @@ import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
 
-  const BACKEND_URL = "bertscoreviz-backend-dyeabuc7cteyg5gt.eastus-01.azurewebsites.net";
+  const BACKEND_URL = "https://bertscoreviz-backend-dyeabuc7cteyg5gt.eastus-01.azurewebsites.net";
   
   //available bert models
   const [availableModels, setAvailableModels] = useState();
