@@ -8,7 +8,7 @@ For more information on BERTScore, please refer to the original paper: [BERTScor
 
 ### Setup
 
-Unfortunately, this React App is not currently deployed, so you must run it locally. However, this may change in the future!
+This React App is not currently deployed, so you must run it locally. However, this may change in the future!
 
 BERTSoreVisualizer consists of a flask backend and a React frontend.
 
