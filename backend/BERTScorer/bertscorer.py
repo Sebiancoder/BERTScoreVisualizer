@@ -87,9 +87,9 @@ class BERTScorer:
 
         formatted_results_dict = {}
 
-        formatted_results_dict['precision'] = round(bert_score_results['precision'], 4)
-        formatted_results_dict['recall'] = round(bert_score_results['recall'], 4)
-        formatted_results_dict['f1_score'] = round(bert_score_results['f1_score'], 4)
+        formatted_results_dict['precision'] = round(float(bert_score_results['precision']), 4)
+        formatted_results_dict['recall'] = round(float(bert_score_results['recall']), 4)
+        formatted_results_dict['f1_score'] = round(float(bert_score_results['f1_score']), 4)
         formatted_results_dict['verbosity'] = round(float(bert_score_results['verbosity']), 4)
 
         formatted_results_dict['reference_tokens'] = bert_score_results['reference_tokens']
