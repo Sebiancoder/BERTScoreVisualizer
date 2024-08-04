@@ -85,6 +85,7 @@ html {
   flex: 0.75;
   align-items: stretch;
   justify-content: space-evenly;
+  max-width: 75%;
 }
 
 .matching-display-child {
@@ -94,6 +95,7 @@ html {
   align-items: stretch;
   justify-content: stretch;
   height: 100%;
+  overflow-x: auto;
 }
 
 .scoredisplay {
@@ -148,8 +150,7 @@ html {
 .referencetokens {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex: 0.4 0 0;
 }
@@ -157,8 +158,7 @@ html {
 .candidatetokens {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex: 0.4 0 0;
 }
@@ -203,6 +203,7 @@ html {
   justify-content: center;
   margin: 5px;
   flex: 0.2;
+  min-width: 200px;
 }
 
 .tokens {
@@ -239,7 +240,6 @@ html {
   top: 0%;
   left: 50%;
   margin-right: 0px;
-
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent var(--main-gray) transparent;
