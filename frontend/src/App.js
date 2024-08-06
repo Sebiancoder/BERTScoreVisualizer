@@ -5,7 +5,7 @@ import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
 
-  const BACKEND_URL = "https://bsv-backend--2xbnc8y.victoriousplant-d0803d1d.westus2.azurecontainerapps.io";
+  const BACKEND_URL = "http://localhost:5000";
   
   //available bert models
   const [availableModels, setAvailableModels] = useState();
@@ -205,14 +205,14 @@ function App() {
                                 id={'candtoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
                                 onMouseOut={() => setHoveredToken(null)}
-                                style={bertScoreResults["candidate_verbosity_scores"][index] > 0.01 ? {border: "solid", "border-color": "#d12626"} : {}}>
+                                style={bertScoreResults["verbose_candidate_tokens"].includes(index) ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
-                              <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["candidate_verbosity_scores"][index] > 0.01} 
+                              <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["verbose_candidate_tokens"].includes(index)} 
                                 anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
                                 <div className='verbosePopperDiv'>
-                                  <p className='popper-text'> This token is verbose (Verbosity Score: {bertScoreResults["candidate_verbosity_scores"][index].toFixed(4)})</p>
+                                  <p className='popper-text'> This token is verbose (is not utilized to recall reference tokens)</p>
                                 </div>
                               </Popper>
                             </div>
