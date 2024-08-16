@@ -204,17 +204,10 @@ function App() {
                                 className='token'
                                 id={'candtoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
-                                onMouseOut={() => setHoveredToken(null)}
-                                style={bertScoreResults["verbose_candidate_tokens"].includes(index) ? {border: "solid", "border-color": "#d12626"} : {}}>
+                                onMouseOut={() => setHoveredToken(null)}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
-                              <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["verbose_candidate_tokens"].includes(index)} 
-                                anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
-                                <div className='verbosePopperDiv'>
-                                  <p className='popper-text'> This token is verbose (is not utilized to recall reference tokens)</p>
-                                </div>
-                              </Popper>
                             </div>
                           )
                         })
