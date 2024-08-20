@@ -154,6 +154,7 @@ function App() {
                       {
                         bertScoreResults['reference_tokens'].map((token, index) => {
                           return (
+                            <div>
                             <ArcherElement 
                               id={"reftoken_" + String(index)} 
                               relations={[{
@@ -169,11 +170,20 @@ function App() {
                               <div 
                                 key={index} 
                                 className='token' 
+                                id={'reftoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("reftoken_" + String(index))} 
-                                onMouseOut={() => setHoveredToken(null)}>
+                                onMouseOut={() => setHoveredToken(null)}
+                                style={(bertScoreResults["unmatched_reference_tokens"].includes(index)) ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
+                            <Popper open={(hoveredToken === "reftoken_" + String(index)) && bertScoreResults["unmatched_reference_tokens"].includes(index)} 
+                            anchorEl={document.getElementById("reftoken" + String(index))} placement='top'>
+                            <div className='verbosePopperDivUpsideDown'>
+                              <p className='popper-text'> This reference token is unmatched.</p>
+                            </div>
+                            </Popper>
+                            </div>
                           )
                         })
                       }
@@ -204,11 +214,18 @@ function App() {
                                 className='token'
                                 id={'candtoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
-                                onMouseOut={() => setHoveredToken(null)}>
+                                onMouseOut={() => setHoveredToken(null)}
+                                style={(bertScoreResults["unmatched_candidate_tokens"].includes(index)) ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
-                            </div>
+                            <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["unmatched_candidate_tokens"].includes(index)} 
+                              anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
+                              <div className='verbosePopperDiv'>
+                                <p className='popper-text'> This candidate token is unmatched.</p>
+                              </div>
+                            </Popper>
+                          </div>
                           )
                         })
                       }
