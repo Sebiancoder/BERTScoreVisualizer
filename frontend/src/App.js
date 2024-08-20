@@ -252,7 +252,6 @@ function App() {
                   <div className='metricdiv'><h3 className='metric'>Recall: {bertScoreResults['recall']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>Precision: {bertScoreResults['precision']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3></div>
-                  <div className='metricdiv'><h3 className='metric'>Verbosity: {bertScoreResults['verbosity']}</h3></div>
                 </div>
               </div>
             </div>
