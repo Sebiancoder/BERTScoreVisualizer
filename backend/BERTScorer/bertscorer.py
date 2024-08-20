@@ -65,12 +65,11 @@ class BERTScorer:
 
         f1_score = 2 * (precision * recall) / (precision + recall)
 
-        #verbosity
-        verbose_candidate_tokens = set(range(candidate_embeddings.shape[0])) - set(recall_matchings)
+        #unmatched tokens
+        unmatched_reference_tokens = set(range(reference_embeddings.shape[0])) - set(precision_matchings)
+        unmatched_candidate_tokens = set(range(candidate_embeddings.shape[0])) - set(recall_matchings)
 
-        verbosity = len(verbose_candidate_tokens) / candidate_embeddings.shape[0]
-
-        return_dict = {'precision': precision, 'recall': recall, 'f1_score': f1_score, 'verbosity': verbosity}
+        return_dict = {'precision': precision, 'recall': recall, 'f1_score': f1_score}
 
         if return_matchings:
 
@@ -80,7 +79,8 @@ class BERTScorer:
             return_dict['candidate_tokens'] = candidate_tokens
             return_dict['precision_matchings'] = precision_matchings
             return_dict['precision_matching_values'] = precision_matching_values
-            return_dict['verbose_candidate_tokens'] = verbose_candidate_tokens
+            return_dict['unmatched_reference_tokens'] = unmatched_reference_tokens
+            return_dict['unmatched_candidate_tokens'] = unmatched_candidate_tokens
 
         return return_dict
 
@@ -91,7 +91,6 @@ class BERTScorer:
         formatted_results_dict['precision'] = round(float(bert_score_results['precision']), 4)
         formatted_results_dict['recall'] = round(float(bert_score_results['recall']), 4)
         formatted_results_dict['f1_score'] = round(float(bert_score_results['f1_score']), 4)
-        formatted_results_dict['verbosity'] = round(float(bert_score_results['verbosity']), 4)
 
         formatted_results_dict['reference_tokens'] = bert_score_results['reference_tokens']
         formatted_results_dict['candidate_tokens'] = bert_score_results['candidate_tokens']
@@ -101,6 +100,7 @@ class BERTScorer:
 
         formatted_results_dict['precision_matchings'] = bert_score_results['precision_matchings'].tolist()
         formatted_results_dict['precision_matching_values'] = bert_score_results['precision_matching_values'].tolist()
-        formatted_results_dict['verbose_candidate_tokens'] = list(bert_score_results['verbose_candidate_tokens'])
+        formatted_results_dict['unmatched_reference_tokens'] = list(bert_score_results['unmatched_reference_tokens'])
+        formatted_results_dict['unmatched_candidate_tokens'] = list(bert_score_results['unmatched_candidate_tokens'])
 
         return formatted_results_dict
