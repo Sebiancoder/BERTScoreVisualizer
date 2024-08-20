@@ -154,6 +154,7 @@ function App() {
                       {
                         bertScoreResults['reference_tokens'].map((token, index) => {
                           return (
+                            <div>
                             <ArcherElement 
                               id={"reftoken_" + String(index)} 
                               relations={[{
@@ -169,11 +170,20 @@ function App() {
                               <div 
                                 key={index} 
                                 className='token' 
+                                id={'reftoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("reftoken_" + String(index))} 
-                                onMouseOut={() => setHoveredToken(null)}>
+                                onMouseOut={() => setHoveredToken(null)}
+                                style={(bertScoreResults["unmatched_reference_tokens"].includes(index)) ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
+                            <Popper open={(hoveredToken === "reftoken_" + String(index)) && bertScoreResults["unmatched_reference_tokens"].includes(index)} 
+                            anchorEl={document.getElementById("reftoken" + String(index))} placement='top'>
+                            <div className='verbosePopperDivUpsideDown'>
+                              <p className='popper-text'> This reference token is unmatched.</p>
+                            </div>
+                            </Popper>
+                            </div>
                           )
                         })
                       }
@@ -205,17 +215,17 @@ function App() {
                                 id={'candtoken' + String(index)}
                                 onMouseOver={() => setHoveredToken("candtoken_" + String(index))} 
                                 onMouseOut={() => setHoveredToken(null)}
-                                style={bertScoreResults["verbose_candidate_tokens"].includes(index) ? {border: "solid", "border-color": "#d12626"} : {}}>
+                                style={(bertScoreResults["unmatched_candidate_tokens"].includes(index)) ? {border: "solid", "border-color": "#d12626"} : {}}>
                                   <p className='token-text'>{token}</p>
                               </div>
                             </ArcherElement>
-                              <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["verbose_candidate_tokens"].includes(index)} 
-                                anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
-                                <div className='verbosePopperDiv'>
-                                  <p className='popper-text'> This token is verbose (is not utilized to recall reference tokens)</p>
-                                </div>
-                              </Popper>
-                            </div>
+                            <Popper open={(hoveredToken === "candtoken_" + String(index)) && bertScoreResults["unmatched_candidate_tokens"].includes(index)} 
+                              anchorEl={document.getElementById("candtoken" + String(index))} placement='bottom'>
+                              <div className='verbosePopperDiv'>
+                                <p className='popper-text'> This candidate token is unmatched.</p>
+                              </div>
+                            </Popper>
+                          </div>
                           )
                         })
                       }
@@ -259,7 +269,6 @@ function App() {
                   <div className='metricdiv'><h3 className='metric'>Recall: {bertScoreResults['recall']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>Precision: {bertScoreResults['precision']}</h3></div>
                   <div className='metricdiv'><h3 className='metric'>F1: {bertScoreResults['f1_score']}</h3></div>
-                  <div className='metricdiv'><h3 className='metric'>Verbosity: {bertScoreResults['verbosity']}</h3></div>
                 </div>
               </div>
             </div>
