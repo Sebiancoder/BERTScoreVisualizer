@@ -17,9 +17,18 @@ html {
   flex-direction: column;
 }
 
+.headerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-image: linear-gradient(#cccccc, #ffffff);
+}
+
 .header {
   padding: 20px;
-  font-size: 30px;
+  font-size: 40px;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--main-text-color);
 }
@@ -104,6 +113,7 @@ html {
   flex: 0.25;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: 20px;;
 }
 
 .metricvalues {
@@ -268,4 +278,12 @@ html {
 
 .popper-text {
   margin: 0px;
+}
+
+.creditsDialog {
+  padding: 10px;
+}
+
+.shield {
+  margin: 5px;
 }

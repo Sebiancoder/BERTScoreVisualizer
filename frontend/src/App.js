@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem, Alert, Popper } from '@mui/material';
+import { Button, TextField, Divider, Select, FormControl, InputLabel, MenuItem, Alert, Popper, Dialog } from '@mui/material';
 import { ArcherContainer, ArcherElement, ArcherArrow } from 'react-archer';
 
 function App() {
@@ -39,6 +39,9 @@ function App() {
 
   //hover states
   const [hoveredToken, setHoveredToken] = useState(null);
+
+  //state for credits dialog
+  const [creditsDialogOpen, setCreditsDialogOpen] = useState(false);
 
   const handleReferenceTextChange = (event) => {
     setReferenceText(event.target.value);
@@ -90,7 +93,10 @@ function App() {
 
   return (
     <div className="App">
-      <header className="header">BERTScore Visualizer</header>
+      <div className='headerDiv'>
+        <header className="header">BERTScore Visualizer</header>
+        <Button className='creditsButton' variant='contained' color='secondary' onClick={() => {setCreditsDialogOpen(true)}}>About</Button>
+      </div>
       <div className="main">
         <div className="toppanel">
           <div className='entrypanel'>
@@ -275,6 +281,19 @@ function App() {
             : <div className='no-data-placeholder'><h3>Enter some text to see how BertScore works!</h3></div>}
           </div>
       </div>
+      <Dialog open={creditsDialogOpen} onClose={() => setCreditsDialogOpen(false)}>
+        <div className='creditsDialog'>
+        <p>BERTScoreVisualizer is a tool to visualize the inner workings of the BERTScore automatic evaluation metric. For the original BERTScore paper, click <a href="https://arxiv.org/abs/1904.09675">here.</a></p>
+        <p>Originally Developed by Sebastian Jaskowski.</p> 
+        <p>Credit for Favicon: <a href="https://www.flaticon.com/free-icons/matching" title="matching icons">Matching icons created by Three musketeers - Flaticon</a></p>
+        <p>BERTScoreVisualizer is powered by:</p>
+        <img className='shield' src='https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white'/>
+        <img className='shield' src='https://img.shields.io/badge/-HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black'/>
+        <img className='shield' src='https://img.shields.io/badge/microsoft%20azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white'/>
+        <img className='shield' src='https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white'/>
+        <img className='shield' src='https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB'/>
+        </div> 
+      </Dialog>
     </div>
   );
 }
