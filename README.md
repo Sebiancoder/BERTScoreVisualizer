@@ -48,7 +48,7 @@ Evaluation with BERTScore},
 
 ## Contact
 
-If you have any questions or concerns regarding this work, please contact Sebastian Jaskowski (sjaskowski3[at]gatech[dot]edu)
+If you have any questions or concerns regarding this work, please contact Sebastian Jaskowski (sjaskowski3@gatech.edu)
 
 ## Acknowledgements
 
