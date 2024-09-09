@@ -2,13 +2,17 @@
 
 ![alt text](docs/img1.png)
 
-BertScoreVisualizer is a React Web App that allows you to visualize how the BERTScore metric is scoring your generated text. It provides a visualization of the matching between tokens in the generated text to tokens in the reference text.
+BERTScoreVisualizer is a React Web App that allows you to visualize how the BERTScore metric is scoring your generated text. It provides a visualization of the matching between tokens in the generated text to tokens in the reference text.
 
-For more information on BERTScore, please refer to the original paper: [BERTScore: Evaluating Text Generation with BERT](https://arxiv.org/abs/1904.09675).
+For a more thorough explanation of how the software works and its use cases, please [see our paper on Arxiv]().
 
-### Setup
+[Click here to see a video demo of BERTScoreVisualizer](https://drive.google.com/file/d/1X0SjDpe928YHPZhadwaPLFO55gVIlWeP/view)
 
-This React App is not currently deployed, so you must run it locally. However, this may change in the future!
+Finally, our application is live at the following link: [sebiancoder.github.io/BERTScoreVisualizer](sebiancoder.github.io/BERTScoreVisualizer)
+
+### Local Setup
+
+If you wish to run BERTScoreVisualizer locally, you can follow the following steps.
 
 BERTSoreVisualizer consists of a flask backend and a React frontend.
 
