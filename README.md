@@ -10,7 +10,7 @@ For a more thorough explanation of how the software works and its use cases, ple
 
 Finally, our application is live at the following link: [sebiancoder.github.io/BERTScoreVisualizer](https://sebiancoder.github.io/BERTScoreVisualizer)
 
-### Local Setup
+## Local Setup
 
 If you wish to run BERTScoreVisualizer locally, you can follow the following steps.
 
@@ -32,7 +32,7 @@ to install all the required frontend dependencies. Finally, to start the fronten
 
 `npm start`
 
-### Citation
+## Citation
 
 If you find our repository useful, please cite our work.
 
@@ -46,6 +46,10 @@ Evaluation with BERTScore},
 }
 ```
 
-### Acknowledgements
+## Contact
+
+If you have any questions or concerns regarding this work, please contact Sebastian Jaskowski (sjaskowski3[at]gatech[dot]edu)
+
+## Acknowledgements
 
 This project provides a visualization for the BERTScore Automatic Evaluation Metric, building on the work of the original BERTScore paper. You can check out the original BERTScore paper [here](https://arxiv.org/abs/1904.09675), as well as their [GitHub Repository](https://github.com/Tiiiger/bert_score?tab=readme-ov-file) for the official python package.
