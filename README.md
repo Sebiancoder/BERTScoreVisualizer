@@ -32,6 +32,20 @@ to install all the required frontend dependencies. Finally, to start the fronten
 
 `npm start`
 
+### Citation
+
+If you find our repository useful, please cite our work.
+
+```c
+@article{jaskowski2024BERTScoreVisualizer,
+  title={BERTScoreVisualizer: A Web Tool for Understanding Simplified Text
+Evaluation with BERTScore},
+  author={Sebastian Jaskowski and Sahasra Chava and Agam Shah},
+  journal={},
+  year={2024}
+}
+```
+
 ### Acknowledgements
 
 This project provides a visualization for the BERTScore Automatic Evaluation Metric, building on the work of the original BERTScore paper. You can check out the original BERTScore paper [here](https://arxiv.org/abs/1904.09675), as well as their [GitHub Repository](https://github.com/Tiiiger/bert_score?tab=readme-ov-file) for the official python package.
