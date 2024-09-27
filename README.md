@@ -4,7 +4,7 @@
 
 BERTScoreVisualizer is a React Web App that allows you to visualize how the BERTScore metric is scoring your generated text. It provides a visualization of the matching between tokens in the generated text to tokens in the reference text.
 
-For a more thorough explanation of how the software works and its use cases, please [see our paper on Arxiv]().
+For a more thorough explanation of how the software works and its use cases, please [see our paper on Arxiv](https://arxiv.org/abs/2409.17160).
 
 [Click here to see a video demo of BERTScoreVisualizer](https://drive.google.com/file/d/1X0SjDpe928YHPZhadwaPLFO55gVIlWeP/view)
 
